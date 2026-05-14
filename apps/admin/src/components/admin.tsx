@@ -1,0 +1,22 @@
+import { CoreAdmin, CoreAdminProps } from "ra-core";
+import { i18nProvider } from "@/lib/i18nProvider";
+import { Layout } from "@/components/layout";
+import { LoginPage } from "@/components/login-page";
+import { Ready } from "@/components/ready";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
+
+export const Admin = (props: CoreAdminProps) => {
+  return (
+    <ThemeProvider>
+      <Toaster position="top-center" />
+      <CoreAdmin
+        i18nProvider={i18nProvider}
+        layout={Layout}
+        loginPage={LoginPage}
+        ready={Ready}
+        {...props}
+      />
+    </ThemeProvider>
+  );
+};
