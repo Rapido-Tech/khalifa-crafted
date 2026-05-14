@@ -6,10 +6,10 @@ import {
   updateReview,
   deleteReview,
 } from "../controllers/reviewController.js";
-import { auth } from "../auth.js";
+import { getAuth } from "../auth.js";
 
 const router = Router();
-const isAuthenticated = auth.handler;
+const isAuthenticated = (req: any, res: any, next: any) => getAuth().handler(req, res, next);
 
 router.post("/", isAuthenticated, createReview);
 router.get("/", getReviews);
