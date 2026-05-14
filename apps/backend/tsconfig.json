@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // Or a recent stable version like "ES2021" or "ESNext"
+    "module": "NodeNext", // Crucial for Node.js ESM compatibility
+    "moduleResolution": "NodeNext", // Works in conjunction with "module": "NodeNext"
+    "jsx": "react-jsx",
+
+    "lib": ["ES2022"], // Include built-in type definitions for ES2022
+    "outDir": "./dist", // Output directory for compiled JavaScript
+
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Allows default imports from CommonJS modules
+    "skipLibCheck": true, // Skips type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensures consistent casing for file names
+
+    // Recommended for cleaner imports in ESM
+    "resolveJsonModule": true // Allows importing .json files
+    //"noEmit": true, // No JavaScript output from TypeScript itself
+    //"allowImportingTsExtensions": true // Allows import statements to include '.ts' extensions in TypeScript files
+
+    // Optional: for path aliases if you plan to use them (e.g., import { someModule } from '@/utils/someModule';)
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "@/*": ["./*"]
+    // }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"], // Include all .ts and .d.ts files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and the output directory
+}
