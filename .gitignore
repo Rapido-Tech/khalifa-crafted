@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+.next
+out
+build
+
+# Turbo cache
+.turbo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+apps/**/.env
+apps/**/src/config/config.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Temp upload files
+apps/backend/src/lib/tmp
