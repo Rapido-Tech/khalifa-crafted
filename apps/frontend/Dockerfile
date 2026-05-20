@@ -1,27 +1,44 @@
-FROM node:20-alpine as builder
+# ─── base: Node + pnpm via corepack ──────────────────────────────────────────
+FROM node:20-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
-# Set working directory
+# ─── deps: install all workspace deps (cache layer) ──────────────────────────
+FROM base AS deps
 WORKDIR /app
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/types/package.json ./packages/types/
+COPY apps/frontend/package.json ./apps/frontend/
+RUN pnpm install --frozen-lockfile
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy the rest of your app
-COPY . .
-
-# Build the Next.js app
-RUN npm run build
-
-# Production image
-FROM node:20-alpine
-
+# ─── builder: Next.js build ───────────────────────────────────────────────────
+FROM deps AS builder
 WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY --from=builder /app ./
-RUN npm install --omit=dev
+# Types source needed for tsc resolution via workspace symlink
+COPY packages/types/src ./packages/types/src
+COPY apps/frontend ./apps/frontend
+
+# Build args for public env vars baked at build time
+ARG NEXT_PUBLIC_WHATSAPP_NUMBER
+ENV NEXT_PUBLIC_WHATSAPP_NUMBER=${NEXT_PUBLIC_WHATSAPP_NUMBER}
+
+RUN pnpm --filter @khalifa/frontend build
+
+# ─── runner: standalone output only ──────────────────────────────────────────
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Standalone output mirrors monorepo structure; server.js is at the root
+COPY --from=builder /app/apps/frontend/.next/standalone ./
+COPY --from=builder /app/apps/frontend/.next/static ./apps/frontend/.next/static
+COPY --from=builder /app/apps/frontend/public ./apps/frontend/public
 
 EXPOSE 3000
-
-# Run the Next.js app
-CMD ["npm", "start"]
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]

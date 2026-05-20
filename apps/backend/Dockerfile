@@ -1,36 +1,36 @@
-# Use Node.js base image
-FROM node:20-alpine
+# ─── base: Node + pnpm via corepack ──────────────────────────────────────────
+FROM node:20-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
-# Set working directory
+# ─── deps: install all workspace deps (cache layer) ──────────────────────────
+FROM base AS deps
 WORKDIR /app
+# Copy workspace manifests only — source changes won't bust this layer
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/types/package.json ./packages/types/
+COPY apps/backend/package.json ./apps/backend/
+RUN pnpm install --frozen-lockfile
 
-# Accept build-time environment variables
-ARG CLOUDINARY_API_KEY
-ARG CLOUDINARY_API_SECRET
-ARG CLOUDINARY_CLOUD_NAME
-ARG DB_URI
+# ─── builder: compile TypeScript ─────────────────────────────────────────────
+FROM deps AS builder
+COPY apps/backend/src ./apps/backend/src
+COPY apps/backend/tsconfig.json ./apps/backend/
+RUN pnpm --filter @khalifa/backend build
 
+# ─── runner: minimal production image ────────────────────────────────────────
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
 
-# Set environment variables (optional – only set if needed at runtime)
-ENV CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY} \
-    CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET} \
-    CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME} \
-    DB_URI=${DB_URI}
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/types/package.json ./packages/types/
+COPY apps/backend/package.json ./apps/backend/
+RUN pnpm install --frozen-lockfile --prod
 
-# Copy package files
-COPY package*.json ./
+COPY --from=builder /app/apps/backend/dist ./apps/backend/dist
 
-# Install dependencies
-RUN npm ci
-
-# Copy application files
-COPY . .
-
-# Build TypeScript
-RUN npm run build
-
-# Expose application port
-EXPOSE 5000
-
-# Start the server
+WORKDIR /app/apps/backend
+EXPOSE 4000
 CMD ["node", "dist/server.js"]
