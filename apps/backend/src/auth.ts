@@ -55,8 +55,9 @@ export const getAuth = (): ReturnType<typeof betterAuth> => {
       "exp://",
       "http://localhost:5173",
       "http://localhost:3000",
-      "https://khalifacrafted.store",
-      "https://admin.khalifacrafted.store",
+      ...(process.env.ALLOWED_ORIGINS
+        ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+        : []),
     ],
   });
 

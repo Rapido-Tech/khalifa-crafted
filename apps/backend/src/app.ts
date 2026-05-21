@@ -11,14 +11,17 @@ import { errorMiddleware } from "./lib/errorMiddleware.js";
 dotenv.config({ path: "./src/config/config.env" });
 const app = express();
 
+const BASE_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
+const extraOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+  : [];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://khalifacrafted.store",
-      "https://admin.khalifacrafted.store",
-    ],
+    origin: [...BASE_ORIGINS, ...extraOrigins],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     exposedHeaders: ["X-Total-Count"],
