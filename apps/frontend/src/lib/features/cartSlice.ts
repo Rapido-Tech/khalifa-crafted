@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "@/lib/store";
 import type { Product } from "@khalifa/types";
 
 export interface CartItem {
@@ -56,10 +55,10 @@ export const cartSlice = createSlice({
 });
 
 // Computed selectors — derived on read, not stored state
-export const selectCartTotal = (state: RootState) =>
+export const selectCartTotal = (state: { cart: CartState }) =>
   state.cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-export const selectCartCount = (state: RootState) =>
+export const selectCartCount = (state: { cart: CartState }) =>
   state.cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
 export const { addItem, removeItem, updateQuantity, clearCart } =
