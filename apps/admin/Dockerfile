@@ -1,27 +1,37 @@
-# Stage 1 - Build the Vite app
-FROM node:20-alpine AS builder
+# ─── base: Node + pnpm via corepack ──────────────────────────────────────────
+FROM node:20-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
+# ─── deps: install all workspace deps (cache layer) ──────────────────────────
+FROM base AS deps
+WORKDIR /app
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/types/package.json ./packages/types/
+COPY apps/admin/package.json ./apps/admin/
+RUN pnpm install --frozen-lockfile
 
+# ─── builder: Vite build ──────────────────────────────────────────────────────
+FROM deps AS builder
 WORKDIR /app
 
-COPY package*.json ./
-COPY tsconfig*.json ./
-RUN npm install --legacy-peer-deps
+# Types source needed for tsc resolution via workspace symlink
+COPY packages/types/src ./packages/types/src
+COPY apps/admin ./apps/admin
 
-COPY . .
-RUN npm run build
+# VITE_* vars are baked into the bundle at build time
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
 
-# Stage 2 - Serve with Nginx
-FROM nginx:alpine
+RUN pnpm --filter @khalifa/admin build
 
-# Remove default Nginx config
+# ─── runner: nginx serving static dist ───────────────────────────────────────
+FROM nginx:alpine AS runner
+
 RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy custom Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy the built app
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY apps/admin/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/apps/admin/dist /usr/share/nginx/html
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
