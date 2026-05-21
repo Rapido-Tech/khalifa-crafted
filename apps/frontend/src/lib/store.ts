@@ -16,10 +16,12 @@ import {
 import cartReducer from "./features/cartSlice";
 import searchReducer from "./features/searchSlice";
 
-const rootReducer = combineReducers({
+const reducers = {
   cart: cartReducer,
   search: searchReducer,
-});
+};
+
+const rootReducer = combineReducers(reducers);
 
 const persistConfig = {
   key: "root",
@@ -41,7 +43,7 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = { [K in keyof typeof reducers]: ReturnType<(typeof reducers)[K]> };
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppSelector = useSelector.withTypes<RootState>();
