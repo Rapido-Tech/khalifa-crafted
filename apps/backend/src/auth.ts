@@ -8,7 +8,7 @@ dotenv.config({ path: "./src/config/config.env" });
 
 const from = process.env.EMAIL_FROM ?? "noreply@khalifacrafted.store";
 
-let _auth: ReturnType<typeof betterAuth> | null = null;
+let _auth: any = null;
 
 export const getAuth = (): ReturnType<typeof betterAuth> => {
   if (_auth) return _auth;
