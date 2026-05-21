@@ -132,7 +132,7 @@ const defaultPagination = <ListPagination />;
 const defaultBulkActionsToolbar = <BulkActionsToolbar />;
 
 export interface ListViewProps {
-  children: ReactNode;
+  children?: ReactNode;
   actions?: ReactNode;
   filters?: ReactElement[];
   pagination?: ReactNode;

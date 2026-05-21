@@ -18,7 +18,7 @@ export const ReferenceField = <
 >(
   props: ReferenceFieldProps<RecordType, ReferenceRecordType>
 ) => {
-  const { empty } = props;
+  const { empty, render: _render, ...baseProps } = props;
   const id = useFieldValue<RecordType>(props);
   const translate = useTranslate();
 
@@ -29,7 +29,7 @@ export const ReferenceField = <
       empty
     )
   ) : (
-    <ReferenceFieldBase {...props}>
+    <ReferenceFieldBase {...baseProps}>
       <ReferenceFieldView<ReferenceRecordType> {...props} />
     </ReferenceFieldBase>
   );

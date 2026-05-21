@@ -39,7 +39,7 @@ export const Error = (props: InternalErrorProps & {}) => {
             <Accordion type="multiple" className="mt-1 p-2 bg-secondary w-150">
               <AccordionItem value="error">
                 <AccordionTrigger className="py-2">
-                  <Translate i18nKey={error.message}>{error.message}</Translate>
+                  <Translate i18nKey={(error as Error).message}>{(error as Error).message}</Translate>
                 </AccordionTrigger>
                 <AccordionContent className="whitespace-pre-wrap pt-1">
                   <p>{errorInfo?.componentStack}</p>
