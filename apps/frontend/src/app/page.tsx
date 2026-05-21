@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 // Static category tiles use local public assets — no API dependency
 const HOME_CATEGORIES = [
-  { name: "Belts", image: "/assets/images/belts.jpg" },
+  { name: "Belts", image: "/assets/herosection/belts.jpg" },
   { name: "Wallets", image: "/assets/images/wallets.jpg" },
   { name: "Bags", image: "/assets/images/bags.jpg" },
   { name: "Clothes", image: "/assets/images/laptopsleeves.jpg" },
