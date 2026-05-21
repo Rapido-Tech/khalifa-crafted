@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/lib/store";
 import { useRouter } from "next/navigation";
-import { updateQuantity, removeItem } from "@/lib/features/cartSlice";
+import { updateQuantity, removeItem, type CartItem } from "@/lib/features/cartSlice";
 import Title from "@/components/Title";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { FaTrash } from "react-icons/fa";
@@ -23,7 +23,7 @@ const Cart = () => {
       </div>
 
       <div>
-        {cartItems.map((item) => {
+        {cartItems.map((item: CartItem) => {
           const imageUrl = item.thumbnail?.url ?? "";
 
           return (
