@@ -18,7 +18,7 @@ export const getAuth = (): ReturnType<typeof betterAuth> => {
 
   _auth = betterAuth({
     appName: "Khalifa Crafted",
-    database: mongodbAdapter(client.db()),
+    database: mongodbAdapter(client.db() as any),
     emailVerification: {
       enabled: true,
       async sendVerificationEmail({ user, url }) {
@@ -61,5 +61,5 @@ export const getAuth = (): ReturnType<typeof betterAuth> => {
     ],
   });
 
-  return _auth;
+  return _auth!;
 };
