@@ -41,7 +41,10 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = {
+  cart: ReturnType<typeof cartReducer>;
+  search: ReturnType<typeof searchReducer>;
+};
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppSelector = useSelector.withTypes<RootState>();
