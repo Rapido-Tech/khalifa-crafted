@@ -5,7 +5,7 @@ import { ShoppingCart, Search, Menu, X, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/lib/store";
 import { selectCartCount } from "@/lib/features/cartSlice";
 import { formatCurrency } from "@/utils/formatCurrency";
 
@@ -13,7 +13,7 @@ export function Header() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const cartCount = useSelector(selectCartCount);
+  const cartCount = useAppSelector(selectCartCount);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent | TouchEvent) {

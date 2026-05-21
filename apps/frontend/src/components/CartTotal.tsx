@@ -1,12 +1,12 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/lib/store";
 import Title from "./Title";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { selectCartTotal } from "@/lib/features/cartSlice";
 
 const CartTotal = () => {
-  const total = useSelector(selectCartTotal);
+  const total = useAppSelector(selectCartTotal);
 
   return (
     <div className="w-full">

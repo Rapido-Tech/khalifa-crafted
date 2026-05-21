@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/lib/store";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { updateQuantity, removeItem } from "@/lib/features/cartSlice";
 import Title from "@/components/Title";
@@ -14,7 +14,7 @@ import CartTotal from "@/components/CartTotal";
 const Cart = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   return (
     <div className="container mx-auto px-4 border-b pb-8 border-amber-600 pt-14">
