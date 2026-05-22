@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # ─── base: Node + pnpm via corepack ──────────────────────────────────────────
 FROM node:22-alpine AS base
 ENV PNPM_HOME="/pnpm"
@@ -10,21 +11,21 @@ WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY packages/types/package.json ./packages/types/
 COPY apps/admin/package.json ./apps/admin/
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 
 # ─── builder: Vite build ──────────────────────────────────────────────────────
 FROM deps AS builder
 WORKDIR /app
 
-# Types source needed for tsc resolution via workspace symlink
 COPY packages/types/src ./packages/types/src
 COPY apps/admin ./apps/admin
 
-# VITE_* vars are baked into the bundle at build time
 ARG VITE_API_URL
 ENV VITE_API_URL=${VITE_API_URL}
 
-RUN pnpm --filter @khalifa/admin build
+RUN --mount=type=cache,id=vite-cache,target=/app/apps/admin/node_modules/.vite \
+    pnpm --filter @khalifa/admin build
 
 # ─── runner: nginx serving static dist ───────────────────────────────────────
 FROM nginx:alpine AS runner
