@@ -116,7 +116,7 @@ export default function PlaceOrderPage() {
     name: keyof FormData,
     label: string,
     type = "text",
-    autoComplete = name
+    autoComplete: string = name
   ) => (
     <div className="flex flex-col gap-1">
       <label htmlFor={name} className="text-sm font-medium text-gray-700">
