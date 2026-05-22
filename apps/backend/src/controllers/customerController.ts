@@ -3,9 +3,19 @@ import { Customer } from "../models/Customer.js";
 import { catchAsync } from "../lib/catchAsync.js";
 
 export const createCustomer = catchAsync(async (req: Request, res: Response) => {
-  const customer = new Customer(req.body);
-  const saved = await customer.save();
-  res.status(201).json(saved);
+  const { email, first_name, last_name, address, city, zipcode, total_spent = 0 } = req.body;
+
+  const customer = await Customer.findOneAndUpdate(
+    { email },
+    {
+      $setOnInsert: { email, groups: [], has_newsletter: false },
+      $set: { first_name, last_name, address, city, zipcode, last_seen: new Date(), latest_purchase: new Date(), has_ordered: true },
+      $inc: { nb_orders: 1, total_spent },
+    },
+    { upsert: true, new: true }
+  );
+
+  res.status(200).json(customer);
 });
 
 export const getCustomers = catchAsync(async (req: Request, res: Response) => {
