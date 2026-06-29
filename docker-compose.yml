@@ -1,0 +1,40 @@
+services:
+
+  backend:
+    image: ghcr.io/rapido-tech/khalifa-crafted-backend:latest
+    pull_policy: always
+    container_name: khalifa-backend
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_URI: ${DB_URI}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+
+  frontend:
+    image: ghcr.io/rapido-tech/khalifa-crafted-frontend:latest
+    pull_policy: always
+    container_name: khalifa-frontend
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      API_URL: ${API_URL}
+
+  admin:
+    image: ghcr.io/rapido-tech/khalifa-crafted-admin:latest
+    pull_policy: always
+    container_name: khalifa-admin
+    restart: unless-stopped
+    expose:
+      - "80"
