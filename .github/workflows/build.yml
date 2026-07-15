@@ -70,4 +70,5 @@ jobs:
           cache-to: type=gha,mode=max,scope=admin
 
       - name: Trigger Dokploy deploy
-        run: curl -s -X GET "${{ secrets.DOKPLOY_WEBHOOK }}"
+        continue-on-error: true
+        run: curl -s -X POST "${{ secrets.DOKPLOY_WEBHOOK }}"
