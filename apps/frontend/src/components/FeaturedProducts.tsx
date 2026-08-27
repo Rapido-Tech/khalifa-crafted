@@ -88,7 +88,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
               return (
                 <Card
                   key={product._id}
-                  className="shrink-0 w-72 overflow-hidden hover:shadow-lg transition-shadow duration-300 border-amber-600 rounded-none py-0"
+                  className="product-item shrink-0 w-72 overflow-hidden hover:shadow-lg transition-shadow duration-300 border-amber-600 rounded-none py-0"
                 >
                   <div className="relative group h-48">
                     <Link href={`/product/${product._id}`}>

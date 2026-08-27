@@ -141,7 +141,7 @@ export function Header() {
           <div className="md:flex items-center space-x-4 hidden">
             <Search className="h-5.5 w-5.5" />
             <User2 className="h-5.5 w-5.5" />
-            <Link href="/cart" className="relative">
+            <Link href="/cart" className="relative" aria-label="Cart">
               <ShoppingCart className="h-5.5 w-5.5" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-amber-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">

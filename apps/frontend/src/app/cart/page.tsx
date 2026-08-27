@@ -60,12 +60,14 @@ const Cart = () => {
                 }}
               />
 
-              <div
+              <button
+                type="button"
+                aria-label={`Remove ${item.name} from cart`}
                 className="w-4 mr-4 cursor-pointer sm:w-5"
                 onClick={() => dispatch(removeItem(item._id))}
               >
                 <FaTrash />
-              </div>
+              </button>
             </div>
           );
         })}
