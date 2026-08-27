@@ -69,6 +69,31 @@ jobs:
           cache-from: type=gha,scope=admin
           cache-to: type=gha,mode=max,scope=admin
 
+      # Fires AFTER images are pushed — Dokploy always pulls the new digest.
+      # Uses API key auth (more reliable than webhook URL, which changes
+      # whenever the compose service is recreated in Dokploy).
       - name: Trigger Dokploy deploy
         continue-on-error: true
-        run: curl -s -X POST "${{ secrets.DOKPLOY_WEBHOOK }}"
+        env:
+          DOKPLOY_URL: ${{ secrets.DOKPLOY_URL }}
+          DOKPLOY_API_KEY: ${{ secrets.DOKPLOY_API_KEY }}
+          DOKPLOY_COMPOSE_ID: ${{ secrets.DOKPLOY_COMPOSE_ID }}
+        run: |
+          if [ -z "$DOKPLOY_API_KEY" ] || [ -z "$DOKPLOY_COMPOSE_ID" ] || [ -z "$DOKPLOY_URL" ]; then
+            echo "::warning::DOKPLOY_URL, DOKPLOY_API_KEY or DOKPLOY_COMPOSE_ID not set — deploy not triggered"
+            exit 0
+          fi
+          COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}" | head -1)
+          COMMIT_SHA="${{ github.sha }}"
+          code=$(curl -skL -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $DOKPLOY_API_KEY" \
+            -d "{\"composeId\": \"$DOKPLOY_COMPOSE_ID\", \"title\": \"$COMMIT_MSG\", \"description\": \"$COMMIT_SHA\"}" \
+            -o /dev/null -w "%{http_code}" --max-time 30 \
+            "$DOKPLOY_URL/api/compose.redeploy" || echo "000")
+          echo "Redeploy response: HTTP $code"
+          if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
+            echo "Deploy triggered successfully"
+          else
+            echo "::warning::Redeploy returned $code — check DOKPLOY_URL, DOKPLOY_API_KEY, DOKPLOY_COMPOSE_ID"
+          fi
