@@ -28,11 +28,14 @@ type SortKey = "name" | "price-low" | "price-high";
 
 interface ShopClientProps {
   products: Product[];
+  initialCategory?: string;
 }
 
-export default function ShopClient({ products }: ShopClientProps) {
+export default function ShopClient({ products, initialCategory }: ShopClientProps) {
   const [showFilter, setShowFilter] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    initialCategory && CATEGORY_OPTIONS.includes(initialCategory) ? [initialCategory] : []
+  );
   const [sortBy, setSortBy] = useState<SortKey>("name");
 
   const toggleCategory = (cat: string) => {

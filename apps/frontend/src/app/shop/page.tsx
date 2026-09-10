@@ -8,8 +8,13 @@ export const metadata: Metadata = {
     "Browse our full collection of handcrafted leather goods — belts, wallets, bags, watch straps, and more.",
 };
 
-export default async function ShopPage() {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
   const products = await getProducts();
+  const { category } = await searchParams;
 
-  return <ShopClient products={products} />;
+  return <ShopClient products={products} initialCategory={category} />;
 }

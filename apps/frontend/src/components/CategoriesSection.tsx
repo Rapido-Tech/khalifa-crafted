@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface HomeCategory {
   name: string;
@@ -21,9 +22,10 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {categories.map((category) => (
-            <div
+            <Link
               key={category.name}
-              className="group relative aspect-[4/5] overflow-hidden cursor-default"
+              href={`/shop?category=${encodeURIComponent(category.name)}`}
+              className="group relative aspect-[4/5] overflow-hidden block"
             >
               <Image
                 src={category.image}
@@ -36,7 +38,7 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
               <h3 className="absolute bottom-4 left-4 font-marcellus text-lg text-white tracking-wide">
                 {category.name}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
