@@ -36,7 +36,7 @@ export const ProductCreate = () => (
         />
       </div>
 
-      <ReferenceInput source="category_id" reference="categories">
+      <ReferenceInput source="category" reference="categories">
         <AutocompleteInput
           label="Product Category"
           validate={required()}

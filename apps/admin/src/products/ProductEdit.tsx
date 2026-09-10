@@ -35,46 +35,24 @@ export const ProductEdit = () => {
               <WithRecord
                 render={(record) => (
                   <img
-                    src={record.image}
+                    src={record.thumbnail?.url}
                     alt={record.name}
                     className="w-full h-auto rounded-sm"
                   />
                 )}
               />
-              <TextInput
-                source="image"
-                validate={required()}
-                className="[&>input]:bg-white"
-              />
-              <TextInput
-                source="thumbnail"
-                validate={required()}
-                className="[&>input]:bg-white"
-              />
+              <p className="text-xs text-muted-foreground">
+                Image can't be changed here yet — re-uploading requires the
+                same Cloudinary flow as creating a product.
+              </p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-4 mb-2">
             <h3 className="min-w-32 text-sm font-semibold">Products details</h3>
             <div className="border rounded-sm p-4 bg-secondary flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <TextInput
-                source="reference"
-                label="Reference"
-                validate={required()}
-                className="[&>input]:bg-white"
-              />
-              <ReferenceInput source="category_id" reference="categories">
+              <ReferenceInput source="category" reference="categories">
                 <AutocompleteInput label="Category" validate={required()} />
               </ReferenceInput>
-              <TextInput
-                source="width"
-                type="number"
-                className="[&>input]:bg-white"
-              />
-              <TextInput
-                source="height"
-                type="number"
-                className="[&>input]:bg-white"
-              />
               <TextInput
                 source="price"
                 type="number"

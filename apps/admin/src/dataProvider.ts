@@ -35,9 +35,15 @@ export const dataProvider: DataProvider = {
     const response = await axios.get(`${API_URL}/${resource}/${id}`, {
       withCredentials: true,
     });
-    console.log("getList data", response);
 
     const record = response.data;
+
+    // Products come back with `category` populated (an object), but
+    // ReferenceInput/AutocompleteInput need the bare id to select the
+    // current choice and to round-trip correctly on save.
+    if (resource === "products" && record.category && typeof record.category === "object") {
+      record.category = record.category._id;
+    }
 
     return {
       data: {
@@ -55,7 +61,14 @@ export const dataProvider: DataProvider = {
       withCredentials: true,
     });
 
-    return { data: response.data };
+    const data = Array.isArray(response.data) ? response.data : [];
+
+    return {
+      data: data.map((item) => ({
+        ...item,
+        id: item._id,
+      })),
+    };
   },
 
   getManyReference: async (
@@ -115,7 +128,14 @@ export const dataProvider: DataProvider = {
       withCredentials: true,
     });
 
-    return { data: response.data };
+    const record = response.data;
+
+    return {
+      data: {
+        ...record,
+        id: record._id,
+      },
+    };
   },
 
   updateMany: async (resource, { ids, data }) => {
