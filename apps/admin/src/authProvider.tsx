@@ -7,10 +7,8 @@ const authProvider = {
   // Login method: Call Better Auth's signIn
   async login({ email, password }: { email: string; password: string }) {
     const toastId = toast.loading("Logging in, please wait...");
-    console.log("email:", email, "password:", password);
     try {
       const data = await signIn.email({ email, password });
-      console.log(data);
       if (data.data !== null) {
         toast.success("Login successful!", { id: toastId });
         return {

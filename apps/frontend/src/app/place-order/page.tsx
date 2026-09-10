@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { clearCart, selectCartTotal } from "@/lib/features/cartSlice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import Title from "@/components/Title";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 interface FormData {
@@ -40,14 +42,9 @@ export default function PlaceOrderPage() {
 
   if (cartItems.length === 0 && !success) {
     return (
-      <div className="min-h-screen flex items-center justify-center flex-col gap-4 text-gray-600">
+      <div className="min-h-screen flex items-center justify-center flex-col gap-4 text-muted-foreground">
         <p className="text-lg">Your cart is empty.</p>
-        <button
-          onClick={() => router.push("/shop")}
-          className="px-6 py-2 bg-amber-600 text-white hover:bg-amber-700"
-        >
-          Browse Shop
-        </button>
+        <Button onClick={() => router.push("/shop")}>Browse Shop</Button>
       </div>
     );
   }
@@ -60,15 +57,12 @@ export default function PlaceOrderPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-amber-900">Order Placed!</h2>
-        <p className="text-gray-600">Your order reference is <strong>{success}</strong>.</p>
-        <p className="text-gray-500 text-sm">We'll be in touch shortly to confirm your order.</p>
-        <button
-          onClick={() => router.push("/shop")}
-          className="mt-4 px-8 py-3 bg-amber-600 text-white hover:bg-amber-700"
-        >
+        <h2 className="font-marcellus text-2xl text-foreground">Order Placed!</h2>
+        <p className="text-muted-foreground">Your order reference is <strong className="text-foreground">{success}</strong>.</p>
+        <p className="text-muted-foreground text-sm">We'll be in touch shortly to confirm your order.</p>
+        <Button className="mt-4" size="lg" onClick={() => router.push("/shop")}>
           Continue Shopping
-        </button>
+        </Button>
       </div>
     );
   }
@@ -119,10 +113,10 @@ export default function PlaceOrderPage() {
     autoComplete: string = name
   ) => (
     <div className="flex flex-col gap-1">
-      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="text-sm font-medium text-foreground/80">
         {label}
       </label>
-      <input
+      <Input
         id={name}
         name={name}
         type={type}
@@ -130,7 +124,6 @@ export default function PlaceOrderPage() {
         required
         value={form[name]}
         onChange={handleChange}
-        className="border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-amber-600"
       />
     </div>
   );
@@ -144,7 +137,7 @@ export default function PlaceOrderPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Shipping form */}
         <div>
-          <h2 className="text-lg font-semibold text-amber-900 mb-5">
+          <h2 className="font-marcellus text-lg text-foreground mb-5">
             Shipping Information
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -165,26 +158,22 @@ export default function PlaceOrderPage() {
               </p>
             )}
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full py-3 bg-black text-white font-semibold hover:bg-gray-800 active:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-            >
+            <Button type="submit" disabled={submitting} size="lg" className="w-full mt-2">
               {submitting ? "Placing Order..." : "Confirm Order"}
-            </button>
+            </Button>
           </form>
         </div>
 
         {/* Order summary */}
         <div>
-          <h2 className="text-lg font-semibold text-amber-900 mb-5">
+          <h2 className="font-marcellus text-lg text-foreground mb-5">
             Order Summary
           </h2>
-          <div className="border border-gray-200 divide-y divide-gray-100">
+          <div className="border border-border divide-y divide-border">
             {cartItems.map((item) => (
               <div key={item._id} className="flex items-center gap-4 p-4">
                 {item.thumbnail?.url && (
-                  <div className="relative w-14 h-14 shrink-0">
+                  <div className="relative w-14 h-14 shrink-0 bg-muted">
                     <Image
                       src={item.thumbnail.url}
                       alt={item.name}
@@ -195,10 +184,10 @@ export default function PlaceOrderPage() {
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{item.name}</p>
-                  <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+                  <p className="text-sm font-medium truncate text-foreground">{item.name}</p>
+                  <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                 </div>
-                <p className="text-sm font-semibold shrink-0">
+                <p className="text-sm font-semibold shrink-0 text-foreground">
                   {formatCurrency(item.price * item.quantity)}
                 </p>
               </div>
@@ -206,15 +195,15 @@ export default function PlaceOrderPage() {
           </div>
 
           <div className="mt-4 space-y-2 text-sm">
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-muted-foreground">
               <span>Subtotal</span>
               <span>{formatCurrency(total)}</span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-muted-foreground">
               <span>Shipping</span>
               <span>{formatCurrency(0)}</span>
             </div>
-            <div className="flex justify-between text-lg font-bold text-amber-900 border-t pt-3 mt-3">
+            <div className="flex justify-between text-lg font-semibold text-foreground border-t border-border pt-3 mt-3">
               <span>Total</span>
               <span>{formatCurrency(total)}</span>
             </div>

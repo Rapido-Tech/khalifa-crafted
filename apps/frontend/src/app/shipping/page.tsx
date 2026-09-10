@@ -3,7 +3,7 @@ import Title from "@/components/Title";
 import { formatCurrency } from "@/utils/formatCurrency";
 
 export const metadata: Metadata = {
-  title: "Shipping & Returns — Khalifa Crafted",
+  title: "Shipping & Returns",
   description:
     "Shipping times, delivery fees, and return policy for Khalifa Crafted orders.",
 };
@@ -15,9 +15,9 @@ export default function ShippingPage() {
         <Title text1="SHIPPING &" text2="RETURNS" />
       </div>
 
-      <div className="max-w-3xl space-y-12 text-gray-700">
+      <div className="max-w-3xl space-y-12 text-muted-foreground">
         <section>
-          <h2 className="text-xl font-bold text-amber-900 mb-4">Delivery</h2>
+          <h2 className="font-marcellus text-xl text-foreground mb-4">Delivery</h2>
           <ul className="space-y-3 list-disc list-inside leading-relaxed">
             <li>Standard delivery within Nairobi: 1–2 business days</li>
             <li>Upcountry delivery: 3–5 business days</li>
@@ -33,7 +33,7 @@ export default function ShippingPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-amber-900 mb-4">
+          <h2 className="font-marcellus text-xl text-foreground mb-4">
             Order Processing
           </h2>
           <p className="leading-relaxed">
@@ -45,7 +45,7 @@ export default function ShippingPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-amber-900 mb-4">
+          <h2 className="font-marcellus text-xl text-foreground mb-4">
             Returns &amp; Exchanges
           </h2>
           <ul className="space-y-3 list-disc list-inside leading-relaxed">
@@ -60,7 +60,7 @@ export default function ShippingPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-amber-900 mb-4">
+          <h2 className="font-marcellus text-xl text-foreground mb-4">
             Damaged or Incorrect Items
           </h2>
           <p className="leading-relaxed">

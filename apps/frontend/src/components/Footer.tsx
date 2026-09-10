@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="bg-amber-900 text-white py-12">
+    <footer className="bg-charcoal text-charcoal-foreground py-14">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
@@ -12,31 +12,31 @@ export function Footer() {
                 src="/assets/khalidLogo.png"
                 alt="Khalifa Crafted"
                 width={100}
-                height={66}
+                height={48}
                 className="mb-4 brightness-0 invert"
               />
             </Link>
-            <p className="text-amber-200 text-sm leading-relaxed">
+            <p className="text-charcoal-foreground/70 text-sm leading-relaxed">
               Handcrafted leather goods made with passion and precision in Nairobi, Kenya. Each piece is built to last a lifetime.
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-marcellus text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/faq" className="text-amber-200 hover:text-white transition-colors">FAQ</Link></li>
-              <li><Link href="/shipping" className="text-amber-200 hover:text-white transition-colors">Shipping &amp; Returns</Link></li>
-              <li><Link href="/care" className="text-amber-200 hover:text-white transition-colors">Care Instructions</Link></li>
-              <li><Link href="/custom" className="text-amber-200 hover:text-white transition-colors">Custom Orders</Link></li>
-              <li><Link href="/about" className="text-amber-200 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="/faq" className="text-charcoal-foreground/70 hover:text-charcoal-foreground transition-colors">FAQ</Link></li>
+              <li><Link href="/shipping" className="text-charcoal-foreground/70 hover:text-charcoal-foreground transition-colors">Shipping &amp; Returns</Link></li>
+              <li><Link href="/care" className="text-charcoal-foreground/70 hover:text-charcoal-foreground transition-colors">Care Instructions</Link></li>
+              <li><Link href="/custom" className="text-charcoal-foreground/70 hover:text-charcoal-foreground transition-colors">Custom Orders</Link></li>
+              <li><Link href="/about" className="text-charcoal-foreground/70 hover:text-charcoal-foreground transition-colors">About Us</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <div className="space-y-2 text-sm text-amber-200">
+            <h3 className="font-marcellus text-lg mb-4">Contact Us</h3>
+            <div className="space-y-2 text-sm text-charcoal-foreground/70">
               <p>
-                <a href="mailto:info@khalifacrafted.com" className="hover:text-white transition-colors">
+                <a href="mailto:info@khalifacrafted.com" className="hover:text-charcoal-foreground transition-colors">
                   info@khalifacrafted.com
                 </a>
               </p>
@@ -46,7 +46,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-amber-800 text-center text-sm text-amber-300">
+        <div className="mt-10 pt-6 border-t border-charcoal-foreground/15 text-center text-sm text-charcoal-foreground/50">
           <p>&copy; {new Date().getFullYear()} Khalifa Crafted. All rights reserved.</p>
         </div>
       </div>

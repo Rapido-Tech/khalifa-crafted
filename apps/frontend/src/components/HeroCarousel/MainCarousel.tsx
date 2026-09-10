@@ -1,81 +1,66 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
-import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons,
-} from "./EmblaCarouselArrowButtons";
+import React from "react";
+import { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { BannerImages } from "@/types";
 import "./embla.css";
 import { Button } from "../ui/button";
-import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+
+const SLIDES: BannerImages[] = [
+  { name: "Leather Wallet", image: "/assets/images/belts_wallet.jpg" },
+  { name: "Handcrafted Belt", image: "/assets/images/craftedwallet.jpg" },
+  { name: "Leather Watch Strap", image: "/assets/images/craftedwatchstrips.jpg" },
+  { name: "Leather Bag", image: "/assets/images/laptopsleeves.jpg" },
+];
 
 const MainCarousel = () => {
   const options: EmblaOptionsType = { loop: true };
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
-
-  const BannerImages: BannerImages[] = [
-    {
-      name: "Leather Wallet",
-      image: "/assets/images/belts_wallet.jpg",
-    },
-    {
-      name: "Handcrafted Belt",
-      image: "/assets/images/craftedwallet.jpg",
-    },
-
-    {
-      name: "Laptop Sleeve",
-      image: "/assets/images/craftedwatchstrips.jpg",
-    },
-    {
-      name: "Leather Umbrella",
-      image: "/assets/images/laptopsleeves.jpg",
-    },
-    // {
-    //   name: "Custom Piece",
-    //   image: "/assets/images/craftedbelts.jpg",
-    // },
-  ];
+  const [emblaRef] = useEmblaCarousel(options, [
+    Autoplay({ delay: 6000 }),
+  ]);
 
   return (
     <section className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {BannerImages.map((img, index) => (
+          {SLIDES.map((img, index) => (
             <div className="embla__slide w-full h-screen relative" key={index}>
-              <div className="absolute inset-0 bg-black/50 z-10" />
-              <div className="w-full h-full relative">
-                <Image
-                  src={img.image}
-                  alt={img.name}
-                  layout="fill"
-                  objectFit="cover"
-                  priority
-                  className="absolute top-0 left-0"
-                />
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 to-transparent z-10" />
+              <Image
+                src={img.image}
+                alt={img.name}
+                fill
+                priority={index === 0}
+                className="object-cover"
+              />
             </div>
           ))}
         </div>
       </div>
-      <div className="absolute top-1/2 left-20 transform -translate-y-1/2 z-20 space-y-4 text-white cursor-default">
-        <h1 className="uppercase text-sm ">Crafted with Passion</h1>
-        <h1 className="font-marcellus text-6xl leading-16 max-w-3xl">
-          Timeless leather, expertly handcrafted for you
-        </h1>
-        <Button
-          variant="outline"
-          className="bg-transparent rounded-none p-5 cursor-pointer"
-        >
-          Shop Collection
-        </Button>
+      <div className="absolute inset-0 z-20 flex items-center">
+        <div className="container mx-auto px-6 md:px-16">
+          <div className="max-w-2xl space-y-6 text-white cursor-default">
+            <p className="uppercase text-xs md:text-sm tracking-[0.3em] text-brand-foreground/90">
+              Crafted with Passion
+            </p>
+            <h1 className="font-marcellus text-4xl md:text-6xl leading-tight md:leading-[1.1]">
+              Timeless leather, expertly handcrafted for you
+            </h1>
+            <Link href="/shop">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white/70 bg-transparent text-white hover:bg-white hover:text-charcoal"
+              >
+                Shop Collection
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

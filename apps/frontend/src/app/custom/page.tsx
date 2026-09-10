@@ -42,12 +42,12 @@ export default function CustomPage() {
   return (
     <div className="min-h-screen">
       <section className="py-24 bg-[url('/assets/images/craftedwallet.jpg')] bg-cover bg-center relative">
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-charcoal/65" />
         <div className="container mx-auto px-4 relative z-10 text-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold font-neoteric tracking-wider mb-4">
+          <h1 className="font-marcellus text-4xl md:text-6xl mb-4">
             Custom Orders
           </h1>
-          <p className="text-lg md:text-xl text-amber-200 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
             Have something specific in mind? We craft bespoke leather pieces
             tailored exactly to you.
           </p>
@@ -62,45 +62,42 @@ export default function CustomPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {STEPS.map(({ n, title, body }) => (
             <div key={n} className="text-center">
-              <div className="w-12 h-12 bg-amber-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+              <div className="w-12 h-12 bg-brand text-brand-foreground rounded-full flex items-center justify-center text-xl font-semibold mx-auto mb-4">
                 {n}
               </div>
-              <h3 className="font-bold text-amber-900 mb-2">{title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{body}</p>
+              <h3 className="font-marcellus text-foreground mb-2">{title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-amber-50 p-8 max-w-2xl mx-auto text-center">
-          <h3 className="text-xl font-bold text-amber-900 mb-3">
+        <div className="bg-brand-muted p-8 max-w-2xl mx-auto text-center">
+          <h3 className="font-marcellus text-xl text-foreground mb-3">
             What can we make?
           </h3>
-          <p className="text-gray-600 leading-relaxed mb-2">
+          <p className="text-muted-foreground leading-relaxed mb-2">
             Belts · Wallets · Bags · Watch Straps · Passport Holders · Laptop
             Sleeves · Key Holders · Corporate Gifts
           </p>
-          <p className="text-gray-500 text-sm">
+          <p className="text-muted-foreground text-sm">
             If it's leather, we can likely make it.
           </p>
         </div>
 
         <div className="mt-12 text-center space-y-4">
-          <p className="text-gray-700 text-lg">
+          <p className="text-foreground/80 text-lg">
             Ready to start? Reach out and let's bring your vision to life.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Button
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-none cursor-pointer"
+              className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 cursor-pointer"
               onClick={handleWhatsApp}
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               WhatsApp Us
             </Button>
             <Link href="/contact">
-              <Button
-                variant="outline"
-                className="border-amber-600 text-amber-600 hover:bg-amber-50 px-8 py-3 rounded-none bg-transparent"
-              >
+              <Button variant="outline" className="px-8 py-3">
                 Other Ways to Reach Us
               </Button>
             </Link>

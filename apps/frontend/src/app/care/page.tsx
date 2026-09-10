@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Title from "@/components/Title";
 
 export const metadata: Metadata = {
-  title: "Leather Care — Khalifa Crafted",
+  title: "Leather Care",
   description:
     "How to care for your Khalifa Crafted leather goods to keep them looking their best.",
 };
@@ -42,7 +42,7 @@ export default function CarePage() {
         <Title text1="CARE" text2="INSTRUCTIONS" />
       </div>
 
-      <p className="max-w-2xl text-gray-600 text-lg leading-relaxed mb-14">
+      <p className="max-w-2xl text-muted-foreground text-lg leading-relaxed mb-14">
         Full-grain leather is built to last a lifetime. With the right care,
         your Khalifa Crafted piece will only get better with age.
       </p>
@@ -50,20 +50,20 @@ export default function CarePage() {
       <div className="max-w-2xl space-y-10">
         {STEPS.map(({ n, title, body }) => (
           <div key={n} className="flex gap-6 items-start">
-            <span className="text-5xl font-bold text-amber-200 leading-none shrink-0 select-none">
+            <span className="text-5xl font-marcellus text-brand/25 leading-none shrink-0 select-none">
               {n}
             </span>
             <div>
-              <h3 className="text-lg font-bold text-amber-900 mb-2">{title}</h3>
-              <p className="text-gray-600 leading-relaxed">{body}</p>
+              <h3 className="font-marcellus text-lg text-foreground mb-2">{title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{body}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-14 max-w-2xl p-6 bg-amber-50 border-l-4 border-amber-600">
-        <p className="text-gray-700 text-sm leading-relaxed">
-          <strong className="text-amber-900">Pro tip:</strong> Never use
+      <div className="mt-14 max-w-2xl p-6 bg-brand-muted border-l-4 border-brand">
+        <p className="text-foreground/80 text-sm leading-relaxed">
+          <strong className="text-foreground">Pro tip:</strong> Never use
           household cleaners, shoe polish with dyes, or petroleum-based products
           on your leather. When in doubt, reach out to us and we'll advise the
           right product for your specific piece.

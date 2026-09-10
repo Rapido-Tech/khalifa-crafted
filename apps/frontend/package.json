@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@khalifa/types": "workspace:*",
+    "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@reduxjs/toolkit": "^2.8.2",
@@ -19,17 +20,16 @@
     "clsx": "^2.1.1",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
-    "embla-carousel-fade": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.525.0",
     "next": "15.3.5",
-    "rc-slider": "^11.1.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0",
+    "sharp": "^0.35.4",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {

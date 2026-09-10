@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CategoriesSection } from "@/components/CategoriesSection";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { Button } from "@/components/ui/button";
@@ -39,54 +40,52 @@ export default async function HomePage() {
 
       {/* Custom order CTA */}
       <section className="py-20 md:py-36 2xl:py-52 bg-[url('/assets/images/watches.jpg')] bg-cover bg-center bg-no-repeat relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-charcoal/75" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-4xl font-bold mb-6 drop-shadow-lg font-neoteric tracking-wider text-white cursor-default">
+            <h2 className="font-marcellus text-3xl md:text-5xl mb-6 text-white cursor-default">
               Create Your Custom Piece
             </h2>
-            <p className="mb-8 md:text-xl text-amber-400 drop-shadow-md leading-relaxed cursor-default">
+            <p className="mb-8 md:text-xl text-white/80 leading-relaxed cursor-default">
               Have a unique idea? Let&apos;s bring it to life together.
             </p>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="bg-white hover:bg-amber-50 font-semibold px-8 py-3 rounded-none cursor-pointer"
-            >
-              Start Custom Order
-            </Button>
+            <Link href="/custom">
+              <Button size="lg">Start Custom Order</Button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Social links */}
-      <section className="py-8 bg-gray-200">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-4 text-center">Follow Us</h2>
-          <div className="flex justify-center space-x-4">
+      <section className="py-12 bg-secondary/40">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-marcellus text-xl mb-4 text-foreground cursor-default">
+            Follow Us
+          </h2>
+          <div className="flex justify-center space-x-6">
             <a
               href="https://facebook.com/khalifacrafted"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-800 hover:text-amber-600"
+              className="text-foreground/60 hover:text-brand transition-colors"
             >
-              <FaFacebookF size={24} />
+              <FaFacebookF size={20} />
             </a>
             <a
               href="https://twitter.com/khalifacrafted"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-800 hover:text-amber-600"
+              className="text-foreground/60 hover:text-brand transition-colors"
             >
-              <FaTwitter size={24} />
+              <FaTwitter size={20} />
             </a>
             <a
               href="https://instagram.com/khalifacrafted"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-800 hover:text-amber-600"
+              className="text-foreground/60 hover:text-brand transition-colors"
             >
-              <FaInstagram size={24} />
+              <FaInstagram size={20} />
             </a>
           </div>
         </div>

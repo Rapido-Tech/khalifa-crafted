@@ -28,7 +28,7 @@ const ListProductItem = ({ item }: { item: Product }) => {
 
   return (
     <div className="product-item">
-      <div className="relative group h-48">
+      <div className="relative group h-48 bg-muted">
         <Link href={`/product/${item._id}`}>
           <Image
             fill
@@ -40,7 +40,7 @@ const ListProductItem = ({ item }: { item: Product }) => {
         </Link>
         <button
           onClick={handleWhatsAppOrder}
-          className="absolute top-2 right-2 bg-green-500 hover:bg-green-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute top-2 right-2 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           title="Order via WhatsApp"
         >
           <MessageCircle className="h-4 w-4" />
@@ -48,24 +48,21 @@ const ListProductItem = ({ item }: { item: Product }) => {
       </div>
       <CardContent className="p-4">
         <Link href={`/product/${item._id}`}>
-          <h3 className="text-lg font-semibold mb-2 text-amber-900 hover:text-amber-700 cursor-pointer line-clamp-2 font-neoteric">
+          <h3 className="font-marcellus text-base mb-2 text-foreground hover:text-brand cursor-pointer line-clamp-2">
             {item.name}
           </h3>
         </Link>
-        <p className="text-xl font-bold text-amber-800 mb-3">
+        <p className="text-lg font-semibold text-foreground mb-3">
           {formatCurrency(item.price)}
         </p>
         <div className="flex flex-col gap-2">
-          <Button
-            className="w-full bg-amber-600 hover:bg-amber-700 rounded-none text-white"
-            onClick={() => dispatch(addItem(item))}
-          >
+          <Button className="w-full" onClick={() => dispatch(addItem(item))}>
             <ShoppingCart className="mr-2 h-4 w-4" />
             Add to Cart
           </Button>
           <Button
             variant="outline"
-            className="w-full border-green-500 rounded-none text-green-600 hover:bg-green-50 bg-transparent"
+            className="w-full border-green-600 text-green-700 hover:bg-green-50"
             onClick={handleWhatsAppOrder}
           >
             <MessageCircle className="mr-2 h-4 w-4" />

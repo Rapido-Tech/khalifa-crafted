@@ -10,23 +10,21 @@ const CartTotal = () => {
 
   return (
     <div className="w-full">
-      <div className="text-2xl">
-        <Title text1="CART" text2="TOTAL" />
-      </div>
-      <div className="flex flex-col gap-2 mt-2 text-sm">
-        <div className="flex justify-between">
-          <p className="text-lg font-medium">Sub Total</p>
-          <p className="text-lg font-medium">{formatCurrency(total)}</p>
+      <Title text1="Cart" text2="Total" />
+      <div className="flex flex-col gap-3 mt-4 text-sm">
+        <div className="flex justify-between text-foreground/80">
+          <p>Sub Total</p>
+          <p>{formatCurrency(total)}</p>
         </div>
-        <hr />
-        <div className="flex justify-between">
-          <p className="text-lg font-medium">Shipping Fee</p>
-          <p className="text-lg font-medium">{formatCurrency(0)}</p>
+        <hr className="border-border" />
+        <div className="flex justify-between text-foreground/80">
+          <p>Shipping Fee</p>
+          <p>{formatCurrency(0)}</p>
         </div>
-        <hr />
-        <div className="flex justify-between">
-          <p className="text-2xl font-semibold">Total Amount</p>
-          <p className="text-2xl font-semibold">{formatCurrency(total)}</p>
+        <hr className="border-border" />
+        <div className="flex justify-between text-lg font-semibold text-foreground">
+          <p>Total Amount</p>
+          <p>{formatCurrency(total)}</p>
         </div>
       </div>
     </div>

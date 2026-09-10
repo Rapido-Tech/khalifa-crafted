@@ -31,21 +31,24 @@ const features = [
 
 export function WhyChooseUsSection() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <h2 className="text-xl md:text-4xl font-extrabold font-neoteric tracking-wider text-center py-8 cursor-default">
-          Why Choose Khalifa Crafted?
-        </h2>
+        <div className="text-center mb-12">
+          <h2 className="font-marcellus text-3xl md:text-4xl text-foreground cursor-default">
+            Why Choose Khalifa Crafted?
+          </h2>
+          <span className="mt-3 block w-12 h-px bg-brand mx-auto" />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="text-center group">
-              <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-amber-200 transition-colors duration-300">
-                <feature.icon className="h-8 w-8 text-amber-600" />
+              <div className="bg-brand-muted w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
+                <feature.icon className="h-7 w-7 text-brand" />
               </div>
-              <h3 className="texl-lg md:text-xl  font-semibold mb-2 tracking-wider font-neoteric">
+              <h3 className="font-marcellus text-lg md:text-xl mb-2 text-foreground">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-muted-foreground">{feature.description}</p>
             </div>
           ))}
         </div>

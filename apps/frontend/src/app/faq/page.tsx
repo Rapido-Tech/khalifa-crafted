@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Title from "@/components/Title";
 
 export const metadata: Metadata = {
-  title: "FAQ — Khalifa Crafted",
+  title: "FAQ",
   description: "Frequently asked questions about Khalifa Crafted leather goods.",
 };
 
@@ -48,15 +48,15 @@ export default function FAQPage() {
         {FAQS.map(({ q, a }) => (
           <details
             key={q}
-            className="border border-amber-200 group open:border-amber-400"
+            className="border border-border group open:border-brand"
           >
-            <summary className="px-5 py-4 cursor-pointer font-semibold text-amber-900 list-none flex justify-between items-center gap-4 select-none">
+            <summary className="px-5 py-4 cursor-pointer font-semibold text-foreground list-none flex justify-between items-center gap-4 select-none">
               <span>{q}</span>
-              <span className="text-amber-600 text-2xl leading-none shrink-0 group-open:rotate-45 transition-transform duration-200">
+              <span className="text-brand text-2xl leading-none shrink-0 group-open:rotate-45 transition-transform duration-200">
                 +
               </span>
             </summary>
-            <p className="px-5 pb-5 text-gray-600 leading-relaxed">{a}</p>
+            <p className="px-5 pb-5 text-muted-foreground leading-relaxed">{a}</p>
           </details>
         ))}
       </div>

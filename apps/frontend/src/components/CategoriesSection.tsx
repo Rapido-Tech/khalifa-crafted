@@ -11,28 +11,29 @@ interface CategoriesSectionProps {
 
 export function CategoriesSection({ categories }: CategoriesSectionProps) {
   return (
-    <section className="md:py-12">
-      <div className="container mx-auto px-4 border-b pb-8 border-amber-600">
-        <h2 className="text-xl md:text-4xl font-extrabold font-neoteric tracking-wider text-center py-8 cursor-default">
-          Our Categories
-        </h2>
-        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4">
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="font-marcellus text-3xl md:text-4xl text-foreground cursor-default">
+            Our Categories
+          </h2>
+          <span className="mt-3 block w-12 h-px bg-brand mx-auto" />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {categories.map((category) => (
             <div
               key={category.name}
-              className="flex gap-2 flex-col items-center group pb-2 cursor-default"
+              className="group relative aspect-[4/5] overflow-hidden cursor-default"
             >
-              <div className="size-24 rounded-full border-2 border-amber-600 overflow-hidden mb-2 hover:scale-110 transition-transform duration-300 ease-in-out">
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  width={96}
-                  height={96}
-                  priority
-                  className="w-full h-full aspect-square object-cover group-hover:scale-110 transition-transform duration-300 ease-in-out"
-                />
-              </div>
-              <h3 className="text-sm font-semibold tracking-widest text-center font-neoteric group-hover:scale-110 transition-transform duration-300 ease-in-out">
+              <Image
+                src={category.image}
+                alt={category.name}
+                fill
+                className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                sizes="(min-width: 768px) 33vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent" />
+              <h3 className="absolute bottom-4 left-4 font-marcellus text-lg text-white tracking-wide">
                 {category.name}
               </h3>
             </div>

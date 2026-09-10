@@ -3,7 +3,7 @@ import Title from "@/components/Title";
 import { FaWhatsapp } from "react-icons/fa";
 
 export const metadata: Metadata = {
-  title: "Contact — Khalifa Crafted",
+  title: "Contact",
   description: "Get in touch with Khalifa Crafted — we'd love to hear from you.",
 };
 
@@ -18,36 +18,36 @@ export default function ContactPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl">
         <div className="space-y-6">
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-muted-foreground text-lg leading-relaxed">
             Have a question, want a custom order, or just want to say hello?
             We typically respond within a few hours during business hours.
           </p>
 
           <div className="space-y-4">
             <div>
-              <p className="text-sm font-semibold text-amber-900 uppercase tracking-wide mb-1">
+              <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-1">
                 Email
               </p>
               <a
                 href="mailto:info@khalifacrafted.com"
-                className="text-amber-600 hover:underline"
+                className="text-brand hover:underline"
               >
                 info@khalifacrafted.com
               </a>
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-amber-900 uppercase tracking-wide mb-1">
+              <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-1">
                 Phone
               </p>
-              <p className="text-gray-700">+254 123 456 789</p>
+              <p className="text-muted-foreground">+254 123 456 789</p>
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-amber-900 uppercase tracking-wide mb-1">
+              <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-1">
                 Location
               </p>
-              <p className="text-gray-700">Nairobi, Kenya</p>
+              <p className="text-muted-foreground">Nairobi, Kenya</p>
             </div>
           </div>
 
@@ -62,19 +62,19 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="bg-amber-50 p-8 self-start">
-          <h3 className="text-xl font-bold text-amber-900 mb-5">
+        <div className="bg-brand-muted p-8 self-start">
+          <h3 className="font-marcellus text-xl text-foreground mb-5">
             Business Hours
           </h3>
-          <div className="space-y-3 text-gray-700 text-sm">
+          <div className="space-y-3 text-muted-foreground text-sm">
             {[
               { day: "Monday – Friday", hours: "9:00 AM – 6:00 PM" },
               { day: "Saturday", hours: "10:00 AM – 4:00 PM" },
               { day: "Sunday", hours: "Closed" },
             ].map(({ day, hours }) => (
-              <div key={day} className="flex justify-between border-b border-amber-100 pb-3">
+              <div key={day} className="flex justify-between border-b border-border pb-3">
                 <span>{day}</span>
-                <span className="font-medium">{hours}</span>
+                <span className="font-medium text-foreground/80">{hours}</span>
               </div>
             ))}
           </div>

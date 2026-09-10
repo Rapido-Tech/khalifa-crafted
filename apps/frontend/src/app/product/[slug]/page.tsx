@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Star } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { getProducts, getProduct } from "@/lib/api";
 import { formatCurrency } from "@/utils/formatCurrency";
 import ProductActions from "@/components/ProductActions";
@@ -50,39 +50,39 @@ export default async function ProductPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10 md:py-16">
         <Link
           href="/shop"
-          className="inline-flex items-center text-amber-600 hover:text-amber-700 mb-6"
+          className="inline-flex items-center text-sm uppercase tracking-wide text-foreground/70 hover:text-brand transition-colors mb-8"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Shop
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Product images */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {mainImage && (
-              <div className="relative w-full h-96">
+              <div className="relative w-full aspect-square bg-muted">
                 <Image
                   src={mainImage}
                   alt={product.name}
                   fill
-                  className="object-cover rounded-lg shadow-lg"
+                  className="object-cover"
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             )}
             {galleryImages.length > 0 && (
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-3">
                 {galleryImages.slice(0, 4).map((img, i) => (
-                  <div key={i} className="relative h-20">
+                  <div key={i} className="relative aspect-square bg-muted">
                     <Image
                       src={img.url}
                       alt={`${product.name} view ${i + 2}`}
                       fill
-                      className="object-cover rounded cursor-pointer hover:opacity-75 transition-opacity"
+                      className="object-cover cursor-pointer hover:opacity-80 transition-opacity"
                       sizes="25vw"
                     />
                   </div>
@@ -92,50 +92,40 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
 
           {/* Product details */}
-          <div className="space-y-6">
+          <div className="space-y-8 lg:pt-2">
             <div>
-              <h1 className="text-3xl font-bold text-amber-900 mb-2 font-neoteric">
+              <h1 className="font-marcellus text-3xl md:text-4xl text-foreground mb-3">
                 {product.name}
               </h1>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-amber-800">
+              <p className="text-2xl font-semibold text-foreground">
                 {formatCurrency(product.price)}
               </p>
               {product.discount && (
-                <p className="text-sm text-green-600 mt-1">
+                <p className="text-sm text-green-700 mt-1">
                   {product.discount}% off
                 </p>
               )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2 text-amber-900">
+              <h3 className="font-marcellus text-lg text-foreground mb-2">
                 Description
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {product.description}
               </p>
             </div>
 
             {product.sizes && product.sizes.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-amber-900">
+                <h3 className="font-marcellus text-lg text-foreground mb-3">
                   Available Sizes
                 </h3>
                 <div className="flex gap-2 flex-wrap">
                   {product.sizes.map((size) => (
                     <span
                       key={size}
-                      className="px-3 py-1 border border-amber-600 text-sm"
+                      className="px-3 py-1 border border-border text-sm text-foreground/80"
                     >
                       {size}
                     </span>
@@ -143,18 +133,6 @@ export default async function ProductPage({ params }: PageProps) {
                 </div>
               </div>
             )}
-
-            <div>
-              <h3 className="text-lg font-semibold mb-2 text-amber-900">
-                Features
-              </h3>
-              <ul className="list-disc list-inside text-gray-600 space-y-1">
-                <li>100% genuine leather</li>
-                <li>Handcrafted by skilled artisans</li>
-                <li>Durable construction</li>
-                <li>Develops beautiful patina over time</li>
-              </ul>
-            </div>
 
             {/* Client-side interactivity: quantity, cart, WhatsApp */}
             <ProductActions product={product} />

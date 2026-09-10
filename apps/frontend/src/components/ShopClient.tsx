@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, ChangeEvent } from "react";
+import { useState, useMemo } from "react";
 import { ChevronLeft } from "lucide-react";
 import {
   Select,
@@ -10,6 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import type { Product } from "@khalifa/types";
 import ListProductItem from "@/components/ListProductItem";
 
@@ -33,10 +35,9 @@ export default function ShopClient({ products }: ShopClientProps) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortKey>("name");
 
-  const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const toggleCategory = (cat: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(value) ? prev.filter((c) => c !== value) : [...prev, value]
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
     );
   };
 
@@ -66,32 +67,29 @@ export default function ShopClient({ products }: ShopClientProps) {
   }, [products, selectedCategories, sortBy]);
 
   return (
-    <div className="flex flex-col gap-1 pt-10 sm:flex-row sm:gap-10 container mx-auto px-4 border-b pb-8 border-amber-600">
+    <div className="flex flex-col gap-1 pt-10 pb-20 sm:flex-row sm:gap-10 container mx-auto px-4">
       {/* Filters */}
       <div className="min-w-60">
         <p
           onClick={() => setShowFilter((v) => !v)}
-          className="flex items-center gap-2 my-2 text-xl cursor-pointer"
+          className="flex items-center gap-2 my-2 text-sm uppercase tracking-[0.15em] cursor-pointer sm:cursor-default"
         >
-          FILTERS
+          Filters
           <ChevronLeft
-            className={`h-6 w-6 sm:hidden transition-transform ${showFilter ? "-rotate-90" : ""}`}
+            className={`h-4 w-4 sm:hidden transition-transform ${showFilter ? "-rotate-90" : ""}`}
           />
         </p>
 
         <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? "" : "hidden"} sm:block`}
+          className={`border border-border pl-5 pr-4 py-4 mt-6 ${showFilter ? "" : "hidden"} sm:block`}
         >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+          <p className="mb-3 text-sm font-medium text-foreground">Categories</p>
+          <div className="flex flex-col gap-3 text-sm text-foreground/80">
             {CATEGORY_OPTIONS.map((cat) => (
-              <label key={cat} className="flex gap-2 cursor-pointer">
-                <input
-                  className="w-3"
-                  type="checkbox"
-                  value={cat}
-                  onChange={toggleCategory}
+              <label key={cat} className="flex items-center gap-2 cursor-pointer">
+                <Checkbox
                   checked={selectedCategories.includes(cat)}
+                  onCheckedChange={() => toggleCategory(cat)}
                 />
                 {cat}
               </label>
@@ -99,29 +97,28 @@ export default function ShopClient({ products }: ShopClientProps) {
           </div>
         </div>
 
-        <button
-          className={`px-4 py-2 mt-1 text-white bg-black rounded hover:bg-gray-900 ${showFilter ? "block" : "hidden"} sm:block`}
+        <Button
+          variant="outline"
+          size="sm"
+          className={`mt-3 ${showFilter ? "block" : "hidden"} sm:inline-flex`}
           onClick={() => setSelectedCategories([])}
         >
           Clear Filters
-        </button>
+        </Button>
       </div>
 
       {/* Product grid */}
       <div className="flex-1">
-        <div className="flex justify-between mb-4 text-base sm:text-2xl">
-          <h1 className="text-3xl font-bold text-amber-900 font-neoteric">
+        <div className="flex justify-between items-baseline mb-8">
+          <h1 className="font-marcellus text-2xl md:text-3xl text-foreground">
             Products
             {filtered.length !== products.length && (
-              <span className="text-base font-normal text-gray-500 ml-2">
+              <span className="text-sm font-normal text-muted-foreground ml-2">
                 ({filtered.length} of {products.length})
               </span>
             )}
           </h1>
-          <Select
-            value={sortBy}
-            onValueChange={(v) => setSortBy(v as SortKey)}
-          >
+          <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortKey)}>
             <SelectTrigger className="w-48">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
@@ -134,7 +131,7 @@ export default function ShopClient({ products }: ShopClientProps) {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-gray-500 py-12 text-center">
+          <p className="text-muted-foreground py-12 text-center">
             No products match the selected filters.
           </p>
         ) : (
@@ -142,7 +139,7 @@ export default function ShopClient({ products }: ShopClientProps) {
             {filtered.map((product) => (
               <Card
                 key={product._id}
-                className="overflow-hidden hover:shadow-lg rounded-none py-0 transition-shadow duration-300 border-amber-600"
+                className="overflow-hidden hover:shadow-lg py-0 transition-shadow duration-300"
               >
                 <ListProductItem item={product} />
               </Card>

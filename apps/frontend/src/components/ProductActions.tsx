@@ -31,8 +31,10 @@ export default function ProductActions({ product }: { product: Product }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center space-x-4">
-        <span className="text-lg font-semibold text-amber-900">Quantity:</span>
-        <div className="flex items-center border rounded-lg">
+        <span className="text-sm uppercase tracking-wide text-foreground/70">
+          Quantity
+        </span>
+        <div className="flex items-center border border-border">
           <Button
             variant="ghost"
             size="icon"
@@ -56,16 +58,13 @@ export default function ProductActions({ product }: { product: Product }) {
       </div>
 
       <div className="space-y-3">
-        <Button
-          className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 text-lg rounded-none"
-          onClick={handleAddToCart}
-        >
+        <Button className="w-full py-6 text-base" onClick={handleAddToCart}>
           <ShoppingCart className="mr-2 h-5 w-5" />
           Add to Cart — {formatCurrency(product.price * quantity)}
         </Button>
         <Button
           variant="outline"
-          className="w-full border-green-500 text-green-600 hover:bg-green-50 py-3 text-lg bg-transparent rounded-none"
+          className="w-full py-6 text-base border-green-600 text-green-700 hover:bg-green-50"
           onClick={handleWhatsAppOrder}
         >
           <MessageCircle className="mr-2 h-5 w-5" />
@@ -73,9 +72,9 @@ export default function ProductActions({ product }: { product: Product }) {
         </Button>
       </div>
 
-      <div className="bg-amber-50 p-4 rounded-lg">
-        <h4 className="font-semibold text-amber-900 mb-2">Free Shipping</h4>
-        <p className="text-sm text-gray-600">
+      <div className="bg-brand-muted p-4">
+        <h4 className="font-marcellus text-foreground mb-1">Free Shipping</h4>
+        <p className="text-sm text-muted-foreground">
           Free shipping on orders over {formatCurrency(10000)}. Delivery within
           3–5 business days.
         </p>
