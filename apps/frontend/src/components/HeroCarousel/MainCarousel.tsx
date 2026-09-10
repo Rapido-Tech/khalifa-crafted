@@ -34,7 +34,7 @@ const MainCarousel = () => {
                 src={img.image}
                 alt={img.name}
                 fill
-                priority={index === 0}
+                priority
                 className="object-cover"
               />
             </div>

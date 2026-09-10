@@ -139,12 +139,12 @@ export default function ShopClient({ products, initialCategory }: ShopClientProp
           </p>
         ) : (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
-            {filtered.map((product) => (
+            {filtered.map((product, index) => (
               <Card
                 key={product._id}
                 className="overflow-hidden hover:shadow-lg py-0 transition-shadow duration-300"
               >
-                <ListProductItem item={product} />
+                <ListProductItem item={product} priority={index < 4} />
               </Card>
             ))}
           </div>

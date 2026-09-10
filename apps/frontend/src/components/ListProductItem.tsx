@@ -13,7 +13,13 @@ import { CardContent } from "./ui/card";
 const WHATSAPP_NUMBER =
   process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "254123456789";
 
-const ListProductItem = ({ item }: { item: Product }) => {
+const ListProductItem = ({
+  item,
+  priority = false,
+}: {
+  item: Product;
+  priority?: boolean;
+}) => {
   const dispatch = useDispatch();
 
   const handleWhatsAppOrder = () => {
@@ -29,11 +35,12 @@ const ListProductItem = ({ item }: { item: Product }) => {
   return (
     <div className="product-item">
       <div className="relative group h-48 bg-muted">
-        <Link href={`/product/${item._id}`}>
+        <Link href={`/product/${item._id}`} className="relative block h-full w-full">
           <Image
             fill
             src={imageUrl}
             alt={item.name}
+            priority={priority}
             className="object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />

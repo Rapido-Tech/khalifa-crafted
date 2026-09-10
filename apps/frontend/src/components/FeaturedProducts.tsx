@@ -91,7 +91,10 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
                   className="product-item shrink-0 w-72 overflow-hidden hover:shadow-lg transition-shadow duration-300 py-0"
                 >
                   <div className="relative group h-56 bg-muted">
-                    <Link href={`/product/${product._id}`}>
+                    <Link
+                      href={`/product/${product._id}`}
+                      className="relative block h-full w-full"
+                    >
                       <Image
                         src={imageUrl}
                         alt={product.name}
