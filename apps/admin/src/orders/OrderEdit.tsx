@@ -34,7 +34,7 @@ export const OrderEdit = () => (
             choices={[
               { id: "ordered", name: "Ordered" },
               { id: "delivered", name: "Delivered" },
-              { id: "cancelled", name: "Cancelled" },
+              { id: "canceled", name: "Cancelled" },
             ]}
             className="mb-4"
           />

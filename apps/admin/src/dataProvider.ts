@@ -18,16 +18,16 @@ export const dataProvider: DataProvider = {
       },
       withCredentials: true,
     });
-    console.log("getList data", response);
 
     const data = Array.isArray(response.data) ? response.data : [];
+    const totalCount = response.headers["x-total-count"];
 
     return {
       data: data.map((item) => ({
         ...item,
         id: item._id,
       })),
-      total: data.length,
+      total: totalCount !== undefined ? Number(totalCount) : data.length,
     };
   },
 
@@ -77,16 +77,15 @@ export const dataProvider: DataProvider = {
       withCredentials: true,
     });
 
-    console.log("getManyReference data", response);
-
     const data = Array.isArray(response.data) ? response.data : [];
+    const totalCount = response.headers["x-total-count"];
 
     return {
       data: data.map((item) => ({
         ...item,
         id: item._id,
       })),
-      total: data.length,
+      total: totalCount !== undefined ? Number(totalCount) : data.length,
     };
   },
 

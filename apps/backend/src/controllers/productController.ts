@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Product } from "../models/Product.js";
 import { deleteFromCloudinary, handleThumbnailUpload } from "../lib/utils.js";
 import { catchAsync } from "../lib/catchAsync.js";
+import { buildFilterQuery } from "../lib/queryFilter.js";
 import slugifyModule from "slugify";
 
 const slugify = slugifyModule.default;
@@ -57,13 +58,23 @@ export const getProducts = catchAsync(async (req: Request, res: Response) => {
   const sortField = (req.query._sort as string) === "id" ? "_id" : (req.query._sort as string) || "createdAt";
   const sortOrder = req.query._order === "DESC" ? -1 : 1;
 
+  // Note: the "Sales" sidebar filter (best/average/low/never sold) sends
+  // sales/sales_gt/sales_lte params, but Product has no `sales` field in the
+  // schema (no sales-tracking data exists) — intentionally not wired here.
+  const filter = buildFilterQuery(req.query as Record<string, unknown>, {
+    searchFields: ["name", "description"],
+    equalityFields: ["category_id", "stock"],
+    rangeFields: ["stock"],
+    fieldMap: { category_id: "category" },
+  });
+
   const [products, total] = await Promise.all([
-    Product.find()
+    Product.find(filter)
       .populate({ path: "category", select: "name slug _id subcategories" })
       .sort({ [sortField]: sortOrder })
       .skip(skip)
       .limit(limit),
-    Product.countDocuments(),
+    Product.countDocuments(filter),
   ]);
 
   res.setHeader("X-Total-Count", total);

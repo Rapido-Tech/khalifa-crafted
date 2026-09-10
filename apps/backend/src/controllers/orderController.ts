@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Order } from "../models/Order.js";
 import { catchAsync } from "../lib/catchAsync.js";
+import { buildFilterQuery } from "../lib/queryFilter.js";
 
 export const createOrder = catchAsync(async (req: Request, res: Response) => {
   const order = new Order(req.body);
@@ -15,12 +16,17 @@ export const getOrders = catchAsync(async (req: Request, res: Response) => {
   const sortField = (req.query._sort as string) === "id" ? "_id" : (req.query._sort as string) || "createdAt";
   const sortOrder = req.query._order === "DESC" ? -1 : 1;
 
+  const filter = buildFilterQuery(req.query as Record<string, unknown>, {
+    searchFields: ["reference"],
+    equalityFields: ["status", "customer_id"],
+  });
+
   const [orders, total] = await Promise.all([
-    Order.find()
+    Order.find(filter)
       .sort({ [sortField]: sortOrder })
       .skip(skip)
       .limit(limit),
-    Order.countDocuments(),
+    Order.countDocuments(filter),
   ]);
 
   res.setHeader("X-Total-Count", total);

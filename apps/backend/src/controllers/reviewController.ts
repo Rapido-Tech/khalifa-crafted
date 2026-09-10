@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Review } from "../models/Review.js";
 import { catchAsync } from "../lib/catchAsync.js";
+import { buildFilterQuery } from "../lib/queryFilter.js";
 
 export const createReview = catchAsync(async (req: Request, res: Response) => {
   const review = new Review(req.body);
@@ -15,12 +16,17 @@ export const getReviews = catchAsync(async (req: Request, res: Response) => {
   const sortField = (req.query._sort as string) === "id" ? "_id" : (req.query._sort as string) || "createdAt";
   const sortOrder = req.query._order === "DESC" ? -1 : 1;
 
+  const filter = buildFilterQuery(req.query as Record<string, unknown>, {
+    searchFields: ["comment"],
+    equalityFields: ["status", "customer_id", "product_id"],
+  });
+
   const [reviews, total] = await Promise.all([
-    Review.find()
+    Review.find(filter)
       .sort({ [sortField]: sortOrder })
       .skip(skip)
       .limit(limit),
-    Review.countDocuments(),
+    Review.countDocuments(filter),
   ]);
 
   res.setHeader("X-Total-Count", total);

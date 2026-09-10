@@ -29,7 +29,7 @@ export const CategoryList = () => (
             </Link>
           ))}
           <Link
-            className="w-full h-full bg-black/50 hover:bg-black/30 text-white rounded flex items-center justify-center text-2xl font-bold"
+            className="w-full h-32 bg-black/50 hover:bg-black/30 text-white rounded flex items-center justify-center text-2xl font-bold"
             to={`/categories/create`}
           >
             <Plus size={32} />

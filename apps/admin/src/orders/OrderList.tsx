@@ -17,7 +17,7 @@ import { FullNameField } from "../customers/FullNameField";
 const storeKeyByStatus = {
   ordered: "orders.list1",
   delivered: "orders.list2",
-  cancelled: "orders.list3",
+  canceled: "orders.list3",
 };
 
 const filters = [
@@ -74,13 +74,13 @@ const TabbedDataTable = () => {
             />
           </Badge>
         </TabsTrigger>
-        <TabsTrigger value="cancelled" onClick={handleChange("cancelled")}>
+        <TabsTrigger value="canceled" onClick={handleChange("canceled")}>
           Cancelled{" "}
           <Badge variant="outline" className="hidden md:inline-flex">
             <Count
               filter={{
                 ...filterValues,
-                status: "cancelled",
+                status: "canceled",
               }}
             />
           </Badge>
@@ -92,8 +92,8 @@ const TabbedDataTable = () => {
       <TabsContent value="delivered">
         <OrdersTable storeKey={storeKeyByStatus.delivered} />
       </TabsContent>
-      <TabsContent value="cancelled">
-        <OrdersTable storeKey={storeKeyByStatus.cancelled} />
+      <TabsContent value="canceled">
+        <OrdersTable storeKey={storeKeyByStatus.canceled} />
       </TabsContent>
     </Tabs>
   );

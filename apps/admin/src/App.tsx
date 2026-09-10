@@ -1,5 +1,4 @@
 import "@/App.css";
-import "normalize.css";
 import { Admin } from "./components";
 import { dataProvider } from "@/dataProvider.ts";
 import { Resource } from "ra-core";
